@@ -34,8 +34,6 @@ public class NetLobby : NetworkBehaviour
 
     void Update()
     {
-        Debug.Log(isServer);
-        Debug.Log(_restart);
         if (_restart && isServer)
         {
             CustomNetworkManager.Instance.ServerChangeScene(SceneManager.GetActiveScene().name);
@@ -45,7 +43,6 @@ public class NetLobby : NetworkBehaviour
 
     public void RefreshPlayersStatsRedirect(SyncList<string>.Operation op, int index, string oldItem, string newItem)
     {
-        Debug.Log("StartRefresh");
         CanvasManager.Instance.RefreshPlayersStats();
     }    
 }

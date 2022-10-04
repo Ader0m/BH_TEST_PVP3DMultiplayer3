@@ -232,7 +232,6 @@ public class Player : NetworkBehaviour
     [Command]
     public void CmdRegisterPlayer()
     {
-        Debug.Log("RegisterQuery");
         NetLobby.Instance.PlayerList.Add(_nick);
     }
 

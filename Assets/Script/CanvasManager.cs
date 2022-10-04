@@ -62,9 +62,7 @@ public class CanvasManager : MonoBehaviour
         }
 
         foreach (var name in NetLobby.Instance.PlayerList)
-        {
-            Debug.Log("¬ход в цикл спавна " + name);
-            Debug.Log("count " + NetLobby.Instance.PlayerList.Count);
+        {           
             GameObject obj = Instantiate(_playerStats, _matchGroup.transform);
             obj.transform.position = new Vector3(obj.transform.position.x + (count * 300), obj.transform.position.y, obj.transform.position.z);
             obj.GetComponentInChildren<Image>().sprite = Game.Instance.ResourceSpriteDict[count];           
