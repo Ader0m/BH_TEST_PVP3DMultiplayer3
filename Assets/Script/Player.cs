@@ -248,7 +248,10 @@ public class Player : NetworkBehaviour
     public void CmdRegisterPlayer()
     {
         NetLobby.Instance.PlayerList.Add(_nick);
-        NetLobby.NickMass.Add(_nick);
+        if (!NetLobby.NickMass.Contains(_nick))
+        {
+            NetLobby.NickMass.Add(_nick);
+        }
     }
 
     [Command]

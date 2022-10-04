@@ -52,19 +52,22 @@ public class NetLobby : NetworkBehaviour
     /// <param name="newItem"></param>
     public void RefreshPlayersStatsRedirect(SyncList<string>.Operation op, int index, string oldItem, string newItem)
     {
-        if (NickMass.Count > index)
+        if (SyncList<string>.Operation.OP_ADD == op)
         {
-            _playerNickList[index] = NickMass[index];
-            Player[] players = GameObject.FindObjectsOfType<Player>();
-            foreach (Player p in players) 
+            if (NickMass.Count > index)
             {
-                if (string.IsNullOrEmpty(p.Nick))
+                _playerNickList[index] = NickMass[index];
+                Player[] players = GameObject.FindObjectsOfType<Player>();
+                foreach (Player p in players)
                 {
-                    p.SetNameOnReload(NickMass[index]);
-                    break;
+                    if (string.IsNullOrEmpty(p.Nick))
+                    {
+                        p.SetNameOnReload(NickMass[index]);
+                        break;
+                    }
                 }
             }
-        }
-        CanvasManager.Instance.RefreshPlayersStats();
+            CanvasManager.Instance.RefreshPlayersStats();
+        }     
     }    
 }
