@@ -13,6 +13,8 @@ public class Player : NetworkBehaviour
     [SerializeField] private string _nick;
     [SyncVar]
     [SerializeField] private int _score;
+    [SyncVar]
+    [SerializeField] private string reloadName;
     [SerializeField] private float _maxVelosity;
     [SerializeField] private Material _standart;
     [SerializeField] private Material _light;
@@ -22,6 +24,8 @@ public class Player : NetworkBehaviour
     private float _distance;
     private float _mouseY;   
     private float impuls;
+    
+
 
     #region Get/Set    
 
@@ -58,6 +62,11 @@ public class Player : NetworkBehaviour
         }
     }
 
+    public void SetNameOnReload(string name)
+    {
+        reloadName = name;
+    }
+
     #endregion
 
     void Start()
@@ -86,6 +95,12 @@ public class Player : NetworkBehaviour
             DashLogick();
             RotateLogick();
             SpeedController();
+
+            if (!string.IsNullOrEmpty(reloadName))
+            {
+                CmdSetName(reloadName);
+                reloadName = "";
+            }
         } 
     }
 
@@ -233,12 +248,14 @@ public class Player : NetworkBehaviour
     public void CmdRegisterPlayer()
     {
         NetLobby.Instance.PlayerList.Add(_nick);
+        NetLobby.NickMass.Add(_nick);
     }
 
     [Command]
     public void CmdDropPlayer()
     {
         NetLobby.Instance.PlayerList.Remove(_nick);
+        NetLobby.NickMass.Add(_nick);
     }
 
     [Command]
